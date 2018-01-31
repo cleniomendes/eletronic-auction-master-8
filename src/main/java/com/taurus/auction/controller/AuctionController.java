@@ -1,9 +1,8 @@
 package com.taurus.auction.controller;
 
 import com.taurus.auction.domain.Auction;
-import com.taurus.auction.domain.Product;
 import com.taurus.auction.repository.AuctionRepository;
-import com.taurus.auction.schedule.ScheduledAuction;
+import com.taurus.auction.schedule.AuctionScheduled;
 import com.taurus.auction.service.AuctionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +26,7 @@ public class AuctionController implements Serializable {
     private AuctionService auctionService;
 
     @Autowired
-    private ScheduledAuction scheduledAuction;
+    private AuctionScheduled auctionScheduled;
 
     @Autowired
     private AuctionRepository auctionRepository;

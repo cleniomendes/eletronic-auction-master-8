@@ -34,4 +34,11 @@ public interface BidRepository extends JpaRepository<Bid, Long> {
             "and b.stageStepProduct.id = :step_value " +
             "ORDER BY b.bidValue asc")
     List<Bid> findBidByStageStepProductAndStatus(@Param("step_value") Long stepValue);
+
+    @Query("SELECT b FROM Bid b " +
+            "INNER JOIN b.stageStepProduct stp " +
+            "where b.stageStepProduct.id = :step_value " +
+            "and b.status = 'Ativo' " +
+            "ORDER BY b.bidValue desc")
+    List<Bid> findBidByStageStepProduct(@Param("step_value") Long stepValue);
 }

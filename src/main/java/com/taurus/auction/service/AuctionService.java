@@ -4,7 +4,7 @@ import com.taurus.auction.domain.Auction;
 import com.taurus.auction.domain.User;
 import com.taurus.auction.repository.AuctionRepository;
 import com.taurus.auction.repository.UserRepository;
-import com.taurus.auction.schedule.ScheduledAuction;
+import com.taurus.auction.schedule.AuctionScheduled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class AuctionService {
     private UserRepository userRepository;
 
     @Autowired
-    private ScheduledAuction scheduledAuction;
+    private AuctionScheduled auctionScheduled;
 
     private static final Logger log = LoggerFactory.getLogger(AuctionService.class);
 
@@ -83,7 +83,7 @@ public class AuctionService {
             if (df.format(date).equals(df.format(auction.getStart_date()))) {
                 ScheduledExecutorService executor = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
-                Runnable task = () -> scheduledAuction.startAuction(1L, executor);
+                Runnable task = () -> auctionScheduled.startAuction(auction.getId(), executor);
                 executor.scheduleAtFixedRate(task, 2, 10, TimeUnit.SECONDS);
             } else {
                 log.warn(String.format("No one auction for %s", df.format(date)));

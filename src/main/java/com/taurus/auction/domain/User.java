@@ -42,7 +42,7 @@ public class User {
 
     private String status;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<AuctionUser> auctionUsers = new HashSet<AuctionUser>();
 
     private Long lastro;
